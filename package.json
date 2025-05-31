@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "astro dev",
-		"fix-images": "node scripts/fix-image-paths.js",
+		"fix-images": "node scripts/fix-image-paths.mjs",
 		"build": "npm run fix-images && astro build",
 		"build:original": "astro build",
 		"preview": "astro preview"
@@ -16,6 +16,7 @@
 		"@astrojs/vercel": "^8.0.4",
 		"@types/jsdom": "^21.1.7",
 		"astro": "^5.8.1",
+		"glob": "^11.0.2",
 		"jsdom": "^26.1.0",
 		"postcss-nesting": "^13.0.1",
 		"puppeteer": "^24.9.0",
