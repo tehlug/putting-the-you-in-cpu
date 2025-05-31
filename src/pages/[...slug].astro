@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 }
 ---
 
-<html lang='en'>
+<html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -48,10 +48,10 @@ export async function getStaticPaths() {
 	<ExternalNav currentChapterSlug={chapter.slug} />
 
 	<nav class='internal'>
-		<h2>Chapter Contents</h2>
+		<h2>فهرست فصل</h2>
 		
 		<TOCList headings={[
-			{ depth: 2, text: 'Intro', slug: 'intro' },
+			{ depth: 2, text: 'مقدمه', slug: 'intro' },
 			...headings
 		]} />
 
@@ -59,14 +59,14 @@ export async function getStaticPaths() {
 			{prevChapter ? (
 				<a href={prevChapter.data.chapter === 0 ? '/' : prevChapter.slug}>
 					<span aria-hidden='true'>&laquo;</span>
-					<span class='sr-only'>Previous:</span>
-					{prevChapter.data.chapter === 0 ? 'Intro' : `Chapter ${prevChapter.data.chapter}`}
+					<span class='sr-only'>قبلی:</span>
+					{prevChapter.data.chapter === 0 ? 'مقدمه' : `فصل ${prevChapter.data.chapter}`}
 				</a>
 			) : null}
 			{nextChapter ? (
 				<a href={nextChapter.slug}>
-					<span class='sr-only'>Next:</span>
-					{nextChapter.data.chapter === 0 ? 'Intro' : `Chapter ${nextChapter.data.chapter}`}
+					<span class='sr-only'>بعدی:</span>
+					{nextChapter.data.chapter === 0 ? 'مقدمه' : `فصل ${nextChapter.data.chapter}`}
 					<span aria-hidden='true'>&raquo;</span>
 				</a>
 			) : null}
@@ -76,7 +76,7 @@ export async function getStaticPaths() {
 	<main>
 		<header class='content'>
 			<h1 id='intro'>
-				<div class='chapter'>Chapter {chapter.data.chapter}<span class='sr-only'>:</span></div>
+				<div class='chapter'>فصل {chapter.data.chapter}<span class='sr-only'>:</span></div>
 				<div class='title'>
 					{chapter.data.title}
 					<EditButton chapterSlug={chapter.slug} />
@@ -86,7 +86,7 @@ export async function getStaticPaths() {
 
 		<div class='you-are-here'>
 			<div class='content'>
-				<p>Part of <a href='/' style='--color: transparent;'><ColoredTitle /></a>: a rabbit hole into how your computer runs programs.</p>
+				<p>بخشی از <a href='/' style='--color: transparent;'><ColoredTitle /></a>: کاوشی عمیق در نحوهٔ اجرای برنامه‌ها توسط کامپیوتر شما.</p>
 				<OldNav chapterSlug={chapter.slug} />
 			</div>
 		</div>
@@ -96,7 +96,7 @@ export async function getStaticPaths() {
 
 			{nextChapter ? (
 				<a class='continue' href={nextChapter.slug}>
-					Continue to Chapter {nextChapter.data.chapter}: {nextChapter.data.title} <span aria-hidden='true'>&raquo;</span>
+					ادامه خواندن توی فصل {nextChapter.data.chapter}: {nextChapter.data.title} <span aria-hidden='true'>&raquo;</span>
 				</a>
 			) : null}
 		</div>

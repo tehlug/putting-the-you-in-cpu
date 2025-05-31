@@ -14,7 +14,7 @@ const chapterOne = await getEntryBySlug('chapters', 'the-basics')
 const { Content: Intro } = await intro.render()
 ---
 
-<html lang='en'>
+<html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -28,21 +28,21 @@ const { Content: Intro } = await intro.render()
 </head>
 <body>
 	<a class='orpheus-flag' target='_blank' href='https://hackclub.com/'>
-		<img src='/orpheus-flag.svg' width='560' height='315' alt='A project by Hack Club' title='A project by Hack Club' />
+		<img src='/orpheus-flag.svg' width='560' height='315' alt='پروژه‌ای از هک کلاب' title='پروژه‌ای از هک کلاب' />
 	</a>
 
 	<header>
 		<img src='/squiggles/top.svg' class='squiggles top' alt='' aria-hidden='true' />
 		<div class='content'>
 			<h1><ColoredTitle onDark /></h1>
-			<p class='abstract'>Curious exactly what happens when you run a program on your computer? Read this article to learn how multiprocessing works, what system calls really are, how computers manage memory with hardware interrupts, and how Linux loads executables.</p>
+			<p class='abstract'>کنجکاوید که دقیقاً چه اتفاقی می‌افته وقتی برنامه‌ای رو روی کامپیوترتون اجرا می‌کنید؟ این مقاله رو بخونید تا یاد بگیرید چطور چندپردازشی کار می‌کنه، فراخوانی‌های سیستم واقعاً چی هستن، کامپیوترها چطور حافظه رو با وقفه‌های سخت‌افزاری مدیریت می‌کنن، و لینوکس چطور فایل‌های اجرایی رو بارگذاری می‌کنه.</p>
 			<p>
-				By
-				<a target='_blank' href='https://kognise.dev/'>Lexi Mattick</a>
-				&
-				<a href='https://hackclub.com/'>Hack Club</a>
+				نوشته
+				<a target='_blank' href='https://kognise.dev/'>لکسی متیک</a>
+				و
+				<a href='https://hackclub.com/'>هک کلاب</a>
 				&middot;
-				July, 2023
+				ژانویه ۲۰۲۳
 			</p>
 		</div>
 		<img src='/squiggles/bottom.svg' class='squiggles bottom' alt='' aria-hidden='true' />
@@ -52,14 +52,14 @@ const { Content: Intro } = await intro.render()
 	<main>
 		<div class='content'>
 			<h2 id='from-the-beginning'>
-				From the beginning&hellip;
+				از همون اول&hellip;
 				<EditButton chapterSlug='intro' />
 			</h2>
 
 			<Intro />
 
 			<a class='continue' href='the-basics'>
-				Continue to Chapter 1: {chapterOne.data.title}
+				ادامه به فصل ۱: {chapterOne.data.title}
 				<span aria-hidden='true'>&raquo;</span>
 			</a>
 		</div>
