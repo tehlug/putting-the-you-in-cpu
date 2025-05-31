@@ -10,7 +10,7 @@ const rehypeExternalLinksConfig = [
 ]
 
 export default defineConfig({
-	site: 'https://revisto.github.io/putting-the-you-in-cpu/',
+	site: 'https://tehlug.github.io/putting-the-you-in-cpu/',
 	base: '/putting-the-you-in-cpu/',
 	trailingSlash: 'never',
 	output: 'static',
