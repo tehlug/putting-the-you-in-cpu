@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro build",
+		"fix-images": "node scripts/fix-image-paths.js",
+		"build": "npm run fix-images && astro build",
+		"build:original": "astro build",
 		"preview": "astro preview"
 	},
 	"devDependencies": {
