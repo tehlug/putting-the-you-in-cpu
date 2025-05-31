@@ -30,19 +30,19 @@ const rendered: [ CollectionEntry<'chapters'>, Awaited<Render['.mdx']> ][]
 		<div class='content'>
 			<h1><ColoredTitle onDark /></h1>
 			<p class='byline'>
-				By
-				<a target='_blank' href='https://kognise.dev/'>Lexi Mattick</a>
-				&
-				<a href='https://hackclub.com/'>Hack Club</a>
+				نوشته
+				<a target='_blank' href='https://kognise.dev/'>لکسی متیک</a>
+				و
+				<a href='https://hackclub.com/'>هک کلاب</a>
 				&middot;
-				July, 2023
+				جولای ۲۰۲۳
 			</p>
 		</div>
 		<div class='editions'>
-			<div class='label'>Editions</div>
+			<div class='label'>نسخه‌ها</div>
 			<div>
-				<a href='/'>Normal</a> &middot;
-				<strong>One-Pager</strong> &middot;
+				<a href='/'>معمولی</a> &middot;
+				<strong>تک‌صفحه‌ای</strong> &middot;
 				<a href='/editions/printable.pdf'>PDF</a> <!--&middot;
 				<a href='/editions/book.epub'>EPUB</a>-->
 			</div>
@@ -53,7 +53,7 @@ const rendered: [ CollectionEntry<'chapters'>, Awaited<Render['.mdx']> ][]
 	<main>
 		<div class='content'>
 			{rendered.map(([ chapter, { Content } ]) => <>
-				<h2 id={chapter.slug}>Chapter {chapter.data.chapter}: {chapter.data.title}</h2>
+				<h2 id={chapter.slug}>فصل {chapter.data.chapter}: {chapter.data.title}</h2>
 				<DowngradeHeadings>
 					<Content />
 				</DowngradeHeadings>
