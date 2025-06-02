@@ -11,12 +11,25 @@ import { abstract } from '../../metadata'
 const chapters = await getCollection('chapters')
 const rendered: [ CollectionEntry<'chapters'>, Awaited<Render['.mdx']> ][]
 	= await Promise.all(chapters.map(async chapter => [ chapter, await chapter.render() ]))
+const baseUrl = import.meta.env.BASE_URL && import.meta.env.BASE_URL !== '/' ? `${import.meta.env.BASE_URL}/` : '/'
+
 ---
 
 <html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<base href={baseUrl} />
+	<script>
+		document.addEventListener('click', (e) => {
+		const a = e.target.closest('a[href^="#"]');
+		if (!a) return;
+		e.preventDefault();
+		const id = a.getAttribute('href').slice(1);
+		document.getElementById(id)?.scrollIntoView();
+		history.replaceState(null, '', '#' + id);
+		});
+	</script>
 
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-code-font@v1.1.2/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -40,10 +53,10 @@ const rendered: [ CollectionEntry<'chapters'>, Awaited<Render['.mdx']> ][]
 		<div class='editions'>
 			<div class='label'>نسخه‌ها</div>
 			<div>
-				<a href='/'>معمولی</a> &middot;
+				<a href=''>معمولی</a> &middot;
 				<strong>تک‌صفحه‌ای</strong> &middot;
-				<a href='/editions/printable.pdf'>PDF</a> <!--&middot;
-				<a href='/editions/book.epub'>EPUB</a>-->
+				<a href='editions/printable.pdf'>PDF</a> <!--&middot;
+				<a href='editions/book.epub'>EPUB</a>-->
 			</div>
 		</div>
 		<img src={`${import.meta.env.BASE_URL}/squiggles/print.svg`} class='cover-bg' />

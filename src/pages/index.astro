@@ -12,12 +12,25 @@ import ScrollPadding from '../components/ScrollPadding.astro'
 const intro = await getEntryBySlug('chapters', 'intro')
 const chapterOne = await getEntryBySlug('chapters', 'the-basics')
 const { Content: Intro } = await intro.render()
+const baseUrl = import.meta.env.BASE_URL && import.meta.env.BASE_URL !== '/' ? `${import.meta.env.BASE_URL}/` : '/'
+
 ---
 
 <html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<base href={baseUrl} />
+	<script>
+		document.addEventListener('click', (e) => {
+		const a = e.target.closest('a[href^="#"]');
+		if (!a) return;
+		e.preventDefault();
+		const id = a.getAttribute('href').slice(1);
+		document.getElementById(id)?.scrollIntoView();
+		history.replaceState(null, '', '#' + id);
+		});
+	</script>
 
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-code-font@v1.1.2/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -27,11 +40,11 @@ const { Content: Intro } = await intro.render()
 </head>
 <body>
 	<a class='orpheus-flag' target='_blank' href='https://hackclub.com/'>
-		<img src={`${import.meta.env.BASE_URL}/orpheus-flag.svg`} width='560' height='315' alt='پروژه‌ای از هک کلاب' title='پروژه‌ای از هک کلاب' />
+		<img src='orpheus-flag.svg' width='560' height='315' alt='پروژه‌ای از هک کلاب' title='پروژه‌ای از هک کلاب' />
 	</a>
 
 	<header>
-		<img src={`${import.meta.env.BASE_URL}/squiggles/top.svg`} class='squiggles top' alt='' aria-hidden='true' />
+		<img src='squiggles/top.svg' class='squiggles top' alt='' aria-hidden='true' />
 		<div class='content'>
 			<h1><ColoredTitle onDark /></h1>
 			<p class='abstract'>کنجکاوید که دقیقاً چه اتفاقی می‌افته وقتی برنامه‌ای رو روی کامپیوترتون اجرا می‌کنید؟ این مقاله رو بخونید تا یاد بگیرید چطور چندپردازشی کار می‌کنه، فراخوانی‌های سیستم واقعاً چی هستن، کامپیوترها چطور حافظه رو با وقفه‌های سخت‌افزاری مدیریت می‌کنن، و لینوکس چطور فایل‌های اجرایی رو بارگذاری می‌کنه.</p>
@@ -44,7 +57,7 @@ const { Content: Intro } = await intro.render()
 				ژانویه ۲۰۲۳
 			</p>
 		</div>
-		<img src={`${import.meta.env.BASE_URL}/squiggles/bottom.svg`} class='squiggles bottom' alt='' aria-hidden='true' />
+		<img src='squiggles/bottom.svg' class='squiggles bottom' alt='' aria-hidden='true' />
 	</header>
 	<ExternalNav noScript currentChapterSlug='intro' />
 

@@ -11,6 +11,8 @@ import EditButton from '../components/EditButton.astro'
 import ScrollPadding from '../components/ScrollPadding.astro'
 import OldNav from '../components/OldNav.astro'
 
+const baseUrl = import.meta.env.BASE_URL && import.meta.env.BASE_URL !== '/' ? `${import.meta.env.BASE_URL}/` : '/'
+
 export interface Params {
 	slug: CollectionEntry<'chapters'>['slug']
 }
@@ -36,6 +38,17 @@ export async function getStaticPaths() {
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<base href={baseUrl} />
+	<script>
+		document.addEventListener('click', (e) => {
+		const a = e.target.closest('a[href^="#"]');
+		if (!a) return;
+		e.preventDefault();
+		const id = a.getAttribute('href').slice(1);
+		document.getElementById(id)?.scrollIntoView();
+		history.replaceState(null, '', '#' + id);
+		});
+	</script>
 
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-code-font@v1.1.2/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -56,7 +69,7 @@ export async function getStaticPaths() {
 
 		<div class='navigation'>
 			{prevChapter ? (
-				<a href={prevChapter.data.chapter === 0 ? '/' : prevChapter.slug}>
+				<a href={prevChapter.data.chapter === 0 ? '' : prevChapter.slug}>
 					<span aria-hidden='true'>&laquo;</span>
 					<span class='sr-only'>قبلی:</span>
 					{prevChapter.data.chapter === 0 ? 'مقدمه' : `فصل ${prevChapter.data.chapter}`}
@@ -85,7 +98,7 @@ export async function getStaticPaths() {
 
 		<div class='you-are-here'>
 			<div class='content'>
-				<p>بخشی از <a href='/' style='--color: transparent;'><ColoredTitle /></a>: کاوشی عمیق در نحوهٔ اجرای برنامه‌ها توسط کامپیوتر شما.</p>
+				<p>بخشی از <a href='' style='--color: transparent;'><ColoredTitle /></a>: کاوشی عمیق در نحوهٔ اجرای برنامه‌ها توسط کامپیوتر شما.</p>
 				<OldNav chapterSlug={chapter.slug} />
 			</div>
 		</div>

@@ -4,12 +4,15 @@ import '../styles/404.css'
 
 const url = new URL(Astro.url.pathname, Astro.site)
 url.pathname = url.pathname.replace(/\/$/, '') // Strip slash from the end of the path
+
+const baseUrl = import.meta.env.BASE_URL && import.meta.env.BASE_URL !== '/' ? `${import.meta.env.BASE_URL}/` : '/'
 ---
 
 <html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<base href={baseUrl} />
 
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-code-font@v1.1.2/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -20,8 +23,8 @@ url.pathname = url.pathname.replace(/\/$/, '') // Strip slash from the end of th
 	<meta name='robots' content='noindex' />
 	
 	<meta name='theme-color' content='#845ef7' />
-	<link rel='icon' href='/favicon-on-dark.png' media='(prefers-color-scheme: dark)' />
-	<link rel='icon' href='/favicon-on-light.png' media='(prefers-color-scheme: light)' />
+	<link rel='icon' href='favicon-on-dark.png' media='(prefers-color-scheme: dark)' />
+	<link rel='icon' href='favicon-on-light.png' media='(prefers-color-scheme: light)' />
 	
 	<script defer data-domain='cpu.land' src='https://plausible.io/js/script.js' />
 </head>
