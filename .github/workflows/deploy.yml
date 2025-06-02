@@ -13,6 +13,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,6 +30,22 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Generate PDF
+        run: npm run generate-pdf:ci
+
+      - name: Commit and push PDF
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/editions/printable.pdf
+          # Check if there are changes to commit
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: update printable.pdf [skip ci]"
+            git push
+          else
+            echo "No changes to printable.pdf to commit."
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
