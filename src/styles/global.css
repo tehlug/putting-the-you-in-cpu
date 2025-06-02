@@ -126,9 +126,6 @@ hr {
 }
 
 .big {
-	--max-width: 1300px;
-	--width: calc(max(min(100vw - var(--toc-width) - 50px, var(--max-width)), 100%));
-    width: var(--width);
     position: relative;
     left: calc((100% - var(--width)) / 2);
 	margin: 40px auto;
