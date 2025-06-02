@@ -1,10 +1,8 @@
 :root {
-	--font-serif: 'IBM Plex Serif', serif;
-	--font-sans: 'IBM Plex Sans', sans-serif;
-	--font-mono: 'IBM Plex Mono', monospace;
-	--font-main-title: 'Phantom Sans', 'IBM Plex Serif', serif;
-
-	--toc-width: 0px;
+    --font-serif: 'Vazirmatn', serif;
+    --font-sans: 'Vazirmatn', sans-serif;
+    --font-mono: 'Vazir Code', monospace;
+    --font-main-title: 'Vazirmatn', serif;
 }
 
 * {
@@ -71,6 +69,10 @@ pre code {
 
 p, ul:not(li ul), ol:not(li ol), pre, .code-block {
 	margin: 20px 0;
+}
+
+.code-block {
+	direction: ltr;
 }
 
 blockquote {
