@@ -10,7 +10,7 @@
 		"build:original": "astro build",
 		"preview": "astro preview",
 		"generate-pdf:local": "node scripts/pdfgen.js",
-		"generate-pdf:ci": "start-server-and-test preview http://127.0.0.1:3000 generate-pdf:local"
+		"generate-pdf:ci": "node scripts/run-pdf-ci.mjs"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^4.3.0",
