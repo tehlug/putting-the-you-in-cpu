@@ -46,7 +46,7 @@ async function run() {
     const pollUrl = `http://127.0.0.1:${port}${normalizedBase}`;
     console.log(`Calculated pollUrl for start-server-and-test: ${pollUrl}`);
 
-    const serverCommand = `astro preview --port ${port}`;
+    const serverCommand = `astro preview --port ${port} --host`;
     const testCommand = "npm run generate-pdf:local"; // This runs scripts/pdfgen.js
 
     const command = `start-server-and-test "${serverCommand}" "${pollUrl}" "${testCommand}"`;
