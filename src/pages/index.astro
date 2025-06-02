@@ -12,12 +12,25 @@ import ScrollPadding from '../components/ScrollPadding.astro'
 const intro = await getEntryBySlug('chapters', 'intro')
 const chapterOne = await getEntryBySlug('chapters', 'the-basics')
 const { Content: Intro } = await intro.render()
+const baseUrl = import.meta.env.BASE_URL && import.meta.env.BASE_URL !== '/' ? `${import.meta.env.BASE_URL}/` : '/'
+
 ---
 
 <html lang='fa' dir='rtl'>
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	<base href={baseUrl} />
+	<script>
+		document.addEventListener('click', (e) => {
+		const a = e.target.closest('a[href^="#"]');
+		if (!a) return;
+		e.preventDefault();
+		const id = a.getAttribute('href').slice(1);
+		document.getElementById(id)?.scrollIntoView();
+		history.replaceState(null, '', '#' + id);
+		});
+	</script>
 
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-code-font@v1.1.2/dist/font-face.css" rel="stylesheet" type="text/css" />
