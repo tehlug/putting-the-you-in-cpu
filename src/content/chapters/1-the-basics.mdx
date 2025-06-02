@@ -14,17 +14,17 @@ updatedAt: 2023-07-19T18:57:54.630Z
 
 *واحد پردازش مرکزی* (CPU) توی کامپیوتر مسئول انجام همه‌ی محاسباته. همون رئیس بزرگه، جادوگر بزرگ. از لحظه‌ای که کامپیوتر رو روشن می‌کنی شروع می‌کنه به کار کردن و دستورات رو پشت سر همدیگه یکی‌یکی اجرا می‌کنه.
 
-The first mass-produced CPU was the [Intel 4004](http://www.intel4004.com/), designed in the late 60s by an Italian physicist and engineer named Federico Faggin. It was a 4-bit architecture instead of the [64-bit](https://en.wikipedia.org/wiki/64-bit_computing) systems we use today, and it was far less complex than modern processors, but a lot of its simplicity does still remain.
+اولین CPUیی که به تولید انبوه رسید، مدل Intel 4004 بود ک اواخر دهه ۶۰ توسط فیزیکدان و مهندس ایتالیایی به نام فدریکو فاگین طراحی شد. برخلاف سیستم‌های ۶۴ بیتی که ما امروز استفاده می‌کنیم، این پردازنده معماری ۴ بیتی داشت و از پیچیدگی کمتری نسبت به پردازنده‌های مدرن امروزی برخوردار بود اما بخش زیادی از سادگی طراحی اون هنوز توی پردازنده‌های امروزی ما دیده می‌شه.
 
-The "instructions" that CPUs execute are just binary data: a byte or two to represent what instruction is being run (the opcode), followed by whatever data is needed to run the instruction. What we call *machine code* is nothing but a series of these binary instructions in a row. [Assembly](https://en.wikipedia.org/wiki/Assembly_language) is a helpful syntax for reading and writing machine code that's easier for humans to read and write than raw bits; it is always compiled to the binary that your CPU knows how to read.
+«دستوراتی» که CPU اجرا می‌کنه، فقط داده‌های باینری هستن: یک یا دو بایت به مشخص کردن اینکه چه دستوری باید اجرا بشه (opcode) اختصاص داره و بعدش هم هر داده‌ای که برای اجرای اون دستور لازمه. چیزی که بهش می‌گیم کد ماشین، فقط یه سری دستور باینریه که پشت سر هم قرار گرفتن. اسمبلی هم یه زبان کمکیه که باعث می‌شه خوندن و نوشتن کد ماشین برای ما آدما راحت‌تر از کار کردن با بیت‌های خام باشه. وقتی کد اسمبلی می‌نویسیم هم در نهایت همیشه به همون کد باینری تبدیل می‌شه که CPU بلده بخونه.
 
 <img src={`${import.meta.env.BASE_URL}/images/assembly-to-machine-code-translation.png`} loading='eager' style='max-width: 400px;' alt='A diagram demonstrating how machine code translates to assembly and back. A bidirectional arrow connects three examples: Machine Code (Binary) followed by 3 bytes of binary numbers, Machine Code (Hex) followed by those 3 bytes translated to hex (0x83, 0xC3, 0x0A), and Assembly followed by "add ebx, 10". The Assembly and Machine Code are color-coded so it is clear that each byte of the machine code translate to one word in the assembly.' width='935' height='505' />
 
-> An aside: instructions aren't always represented 1:1 in machine code as in the above example. For example, `add eax, 512` translates to `05 00 02 00 00`.
+> نکته: دستورها همیشه به‌صورت یک به یک توی کد ماشین تبدیل نمی‌شن، مثل مثالی که بالا دیدی. مثلاً دستور اسمبلی `add eax, 512` به این کد تبدیل می‌شه: `05 00 02 00 00`.
 > 
-> The first byte (`05`) is an opcode specifically representing *adding the EAX register to a 32-bit number*. The remaining bytes are 512 (`0x200`) in [little-endian](https://en.wikipedia.org/wiki/Endianness) byte order.
+> بایت اول (`05`) یه opcode خاصه که مشخصاً به دستور اضافه کردن یه عدد ۳۲ بیتی به رجیستر EAX اشاره داره. بقیه بایت‌ها عدد ۵۱۲ (یا `0x200`) هستن که به صورت little-endian ذخیره شدن.
 >
-> Defuse Security created [a helpful tool](https://defuse.ca/online-x86-assembler.htm) for playing around with the translation between assembly and machine code.
+> سایت Defuse Security یه ابزار مفید ساخته برای تبدیل کد اسمبلی و کد ماشین بهمدیگه که می‌تونید ازش استفاده کنید.
 
 RAM is your computer's main memory bank, a large multi-purpose space which stores all the data used by programs running on your computer. That includes the program code itself as well as the code at the core of the operating system. The CPU always reads machine code directly from RAM, and code can't be run if it isn't loaded into RAM.
 
