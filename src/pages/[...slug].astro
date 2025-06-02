@@ -69,7 +69,7 @@ export async function getStaticPaths() {
 
 		<div class='navigation'>
 			{prevChapter ? (
-				<a href={prevChapter.data.chapter === 0 ? '/' : prevChapter.slug}>
+				<a href={prevChapter.data.chapter === 0 ? '' : prevChapter.slug}>
 					<span aria-hidden='true'>&laquo;</span>
 					<span class='sr-only'>قبلی:</span>
 					{prevChapter.data.chapter === 0 ? 'مقدمه' : `فصل ${prevChapter.data.chapter}`}
@@ -98,7 +98,7 @@ export async function getStaticPaths() {
 
 		<div class='you-are-here'>
 			<div class='content'>
-				<p>بخشی از <a href='/' style='--color: transparent;'><ColoredTitle /></a>: کاوشی عمیق در نحوهٔ اجرای برنامه‌ها توسط کامپیوتر شما.</p>
+				<p>بخشی از <a href='' style='--color: transparent;'><ColoredTitle /></a>: کاوشی عمیق در نحوهٔ اجرای برنامه‌ها توسط کامپیوتر شما.</p>
 				<OldNav chapterSlug={chapter.slug} />
 			</div>
 		</div>
