@@ -34,6 +34,9 @@ jobs:
       - name: Generate PDF
         run: npm run generate-pdf:ci
 
+      - name: Copy PDF to dist directory
+        run: cp public/editions/printable.pdf dist/editions/printable.pdf
+
       - name: Commit and push PDF
         run: |
           git config --global user.name 'github-actions[bot]'
