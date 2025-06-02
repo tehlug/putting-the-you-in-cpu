@@ -8,7 +8,9 @@
 		"fix-images": "node scripts/fix-image-paths.mjs",
 		"build": "npm run fix-images && astro build",
 		"build:original": "astro build",
-		"preview": "astro preview"
+		"preview": "astro preview",
+		"generate-pdf:local": "node scripts/pdfgen.js",
+		"generate-pdf:ci": "node scripts/run-pdf-ci.mjs"
 	},
 	"devDependencies": {
 		"@astrojs/mdx": "^4.3.0",
@@ -19,9 +21,10 @@
 		"glob": "^11.0.2",
 		"jsdom": "^26.1.0",
 		"postcss-nesting": "^13.0.1",
-		"puppeteer": "^24.9.0",
+		"puppeteer": "^21.0.2",
 		"rehype-external-links": "^3.0.0",
 		"rehype-preset-minify": "^7.0.1",
-		"shiki": "^0.14.2"
+		"shiki": "^0.14.2",
+		"start-server-and-test": "^2.0.12"
 	}
 }
