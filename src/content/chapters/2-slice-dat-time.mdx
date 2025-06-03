@@ -6,36 +6,36 @@ slug: slice-dat-time
 updatedAt: 2023-08-02T18:14:02.296Z
 ---
 
-Let's say you're building an operating system and you want users to be able to run multiple programs at once. You don’t have a fancy multi-core processor though, so your CPU can only run one instruction at a time!
+فرض کنید دارید یک سیستم‌عامل می‌نویسید و می‌خواید کاربرها بتونن چند برنامه رو همزمان اجرا کنن. اما پردازنده‌ی چند هسته‌ای خفنی ندارید، در نتیجه پردازنده‌تون فقط می‌تونه یک دستورالعمل رو در هر لحظه اجرا کنه!
 
-Luckily, you’re a very smart OS developer. You figure out that you can fake parallelism by letting processes take turns on the CPU. If you cycle through the processes and run a couple instructions from each one, they can all be responsive without any single process hogging the CPU.
+خوشبختانه، شما یک برنامه‌نویس سیستم‌عامل خیلی باهوشین. به این نتیجه می‌رسین که می‌تونید با دادن نوبت به پروسس‌ها روی CPU، ادای موازی‌سازی (parallelism) رو دربیارید. اگه بین پروسس‌ها بچرخید و از هر کدوم چندتا دستورالعمل اجرا کنین، همه‌شون می‌تونن پاسخگو باشن بدون اینکه هیچ فرایند خاصی CPU رو به تنهایی قُرُق کنه.
 
-But how do you take control back from program code to switch processes? After a bit of research, you discover that most computers come with timer chips. You can program a timer chip to trigger a switch to an OS interrupt handler after a certain amount of time passes.
+اما چطور کنترل رو از کد برنامه پس می‌گیرین تا فرایندها رو عوض کنین؟ بعد از کمی تحقیق، متوجه میشین که بیشتر کامپیوترها یک تراشه‌ی تایمر (timer chips) دارن. می‌تونید این تراشه تایمر رو طوری برنامه‌ریزی کنین که بعد از گذشت مدت زمان مشخصی، یک وقفه (interrupt) ایجاد کنه و کنترل رو به یک بخش مخصوص در سیستم‌عامل به نام «کنترل‌کننده وقفه» (interrupt handler) بده.
 
-## Hardware Interrupts
+## وقفه‌های سخت‌افزاری (Hardware Interrupts)
 
-Earlier, we talked about how software interrupts are used to hand control from a userland program to the OS. These are called “software” interrupts because they’re voluntarily triggered by a program — machine code executed by the processor in the normal fetch-execute cycle tells it to switch control to the kernel.
+قبل‌تر، از این گفتیم که چطور از وقفه‌های نرم‌افزاری برای انتقال کنترل از یک برنامه‌ی سطح کاربر (userland) به سیستم‌عامل استفاده می‌شه. به این‌ها میگن وقفه‌ی «نرم‌افزاری» چون به صورت داوطلبانه توسط خود برنامه فعال میشن — یعنی کدهای ماشین که پردازنده طبق چرخه‌ی عادی fetch-execute cycle پردازش می‌کنه، بهش دستور میدن که کنترل رو به کرنل منتقل کنه.
 
 <img src='images/keyboard-hardware-interrupt.png' loading='eager' style='max-width: 500px; margin: 0 auto;' alt='A drawing illustrating how hardware interrupts break normal execution. On top: a drawing of a keyboard with a highlighted key, with a lightning bolt drawn to a CPU on the right. On the bottom: some binary labeled "program code," a similar lightning bolt, and some more binary labeled "kernel code." The lightning bolt is labeled "interrupt triggers context switch."' width='935' height='503' />
 
-OS schedulers use *timer chips* like [PITs](https://en.wikipedia.org/wiki/Programmable_interval_timer) to trigger hardware interrupts for multitasking:
+زمان‌بندهای سیستم‌عامل (OS schedulers) از _تراشه‌های تایمر_ مثل [PITها](https://en.wikipedia.org/wiki/Programmable_interval_timer) (تایمرهای بازه‌ای قابل برنامه‌ریزی) برای ایجاد وقفه‌های سخت‌افزاری جهت انجام مولتی‌تسکینگ استفاده می‌کنن:
 
-1. Before jumping to program code, the OS sets the timer chip to trigger an interrupt after some period of time.
-2. The OS switches to user mode and jumps to the next instruction of the program.
-3. When the timer elapses, it triggers a hardware interrupt to switch to kernel mode and jump to OS code.
-4. The OS can now save where the program left off, load a different program, and repeat the process.
+1. قبل از پریدن به کد برنامه، سیستم‌عامل، تراشه‌ی تایمر رو طوری تنظیم می‌کنه که بعد از یک مدت زمان مشخص، وقفه ایجاد کنه.
+2. سیستم‌عامل به حالت کاربر (user mode) میره و به دستورالعمل بعدی برنامه می‌پره.
+3. وقتی زمان تایمر تموم میشه، یک وقفه‌ی سخت‌افزاری ایجاد می‌کنه تا به حالت کرنل (kernel mode) بره و کنترل رو به کد سیستم‌عامل بده.
+4. حالا سیستم‌عامل می‌تونه وضعیت فعلی برنامه (جایی که متوقف شده) رو ذخیره کنه، یک برنامه‌ی دیگه رو بارگذاری کنه و این فرایند رو تکرار کنه.
 
-This is called *preemptive multitasking*; the interruption of a process is called [*preemption*](https://en.wikipedia.org/wiki/Preemption_(computing)). If you’re, say, reading this article on a browser and listening to music on the same machine, your very own computer is probably following this exact cycle thousands of times a second.
+به این میگن _چندوظیفگی پیش‌دستانه (preemptive multitasking)_؛ عمل متوقف کردن یک فرایند رو [_پیش‌دستی (preemption)_](https://en.wikipedia.org/wiki/Preemption_(computing)) میگن. اگه شما، مثلاً، دارید این مقاله رو توی مرورگر می‌خونین و همزمان روی همون دستگاه موسیقی گوش می‌دین، احتمالاً کامپیوتر خودتون داره دقیقاً همین چرخه رو هزاران بار در ثانیه تکرار می‌کنه.
 
-## Timeslice Calculation
+## محاسبه‌ی برش زمانی (Timeslice Calculation)
 
-A *timeslice* is the duration an OS scheduler allows a process to run before preempting it. The simplest way to pick timeslices is to give every process the same timeslice, perhaps in the 10&nbsp;ms range, and cycle through tasks in order. This is called *fixed timeslice round-robin* scheduling.
+_برش زمانی (timeslice)_ مدت زمانیه که زمان‌بند (scheduler) سیستم‌عامل به یک فرایند اجازه میده اجرا بشه، قبل از اینکه به طور پیش‌دستانه متوقفش کنه. ساده‌ترین راه برای انتخاب برش‌های زمانی اینه که به همه‌ی فرایندها یک برش زمانی یکسان، مثلاً در محدوده‌ی ۱۰ میلی‌ثانیه، اختصاص بدیم و به ترتیب بین وظایف بچرخیم. به این روش زمان‌بندی _چرخشی نوبتی با برش زمانی ثابت (fixed timeslice round-robin)_ میگن.
 
-> **Aside: fun jargon facts!**
+> **نکته‌ی باحال در مورد اصطلاحات تخصصی!**
 > 
-> Did you know that timeslices are often called "quantums?" Now you do, and you can impress all your tech friends. I think I deserve heaps of praise for not saying quantum in every other sentence in this article.
+> می‌دونستین که به برش‌های زمانی اغلب «کوانتوم» هم میگن؟ حالا دیگه می‌دونین و می‌تونید دوستای گیکتون رو تحت تأثیر قرار بدین. فکر کنم کلی تشویق لازم دارم که تو این مقاله هر دو جمله یه بار نگفتم کوانتوم.
 > 
-> Speaking of timeslice jargon, Linux kernel devs use the [jiffy](https://github.com/torvalds/linux/blob/22b8cc3e78f5448b4c5df00303817a9137cd663f/include/linux/jiffies.h) time unit to count fixed frequency timer ticks. Among other things, jiffies are used for measuring the lengths of timeslices. Linux's jiffy frequency is typically 1000 Hz but can be configured when compiling the kernel.
+> حالا که صحبت از اصطلاحات برش زمانی شد، توسعه‌دهندگان کرنل لینوکس از واحد زمانی [جیفی (jiffy)](https://github.com/torvalds/linux/blob/22b8cc3e78f5448b4c5df00303817a9137cd663f/include/linux/jiffies.h) برای شمارش تیک‌های تایمر با فرکانس ثابت استفاده می‌کنن. بین چیزای دیگه، از جیفی‌ها برای اندازه‌گیری طول برش‌های زمانی هم استفاده میشه. فرکانس جیفی در لینوکس معمولاً ۱۰۰۰ هرتزه ولی موقع کامپایل کردن کرنل میشه تغییرش داد.
 
 A slight improvement to fixed timeslice scheduling is to pick a *target latency* — the ideal longest time for a process to respond. The target latency is the time it takes for a process to resume execution after being preempted, assuming a reasonable number of processes. *This is pretty hard to visualize! Don't worry, a diagram is coming soon.*
 
